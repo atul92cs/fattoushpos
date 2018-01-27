@@ -21,6 +21,38 @@ app.use(bodyparser.json());
 app.post('/',function(req,res){
 	res.send('App works');
 });
+app.get('/getOrders',function(req,res){
+	 let sql='SELECT * FROM orders';
+	 let query=db.query(sql,function(err,rows,fields){
+		 if(!err)
+		 {
+			 var response=[];
+			 if(rows.length!=0)
+			 {
+				 var id=rows[i].order_id;
+				 var order=rows[i].order_summary;
+				 var cost=rows[i].order_cost;
+				 var date=rows[i].order_date;
+				 var contact=rows[i].user_contact;
+				 var name=rows[i].user_name;
+				 var address=rows[i].order_address;
+				 var status=rows[i].order_status;
+				 response.push({id,order,cost,date,contact,name,address,status});
+				 
+			 }
+			 else
+			 {
+				 response.push("no data found");
+			 }
+			 	res.json({response});
+		 }
+		 else
+		 {
+			 res.status(404).send('error occured');
+		 }
+	 });
+	
+});
 
 app.listen(port,function(){
       console.log('app started on port 8080');
