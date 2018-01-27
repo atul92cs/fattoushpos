@@ -33,6 +33,18 @@ app.post('/addProduct',function(req,res){
 		res.send('Product Added');
 	});
 });
+app.post('/createProduct',function(req,res){
+	var name=req.body.Name;
+	var cost=req.body.Cost;
+	var category=req.body.Category;
+	var diet=req.body.Diet;
+	let body={product_name:name,product_cost:cost,product_category:category,product_diet:diet};
+	let sql='INSERT INTO products SET ?';
+    let query=db.query(sql,body,(err,result)=>{
+		if(err)throw err;
+		res.send('Product Created');
+	});
+	});
 app.get('/getOrders',function(req,res){
 	 let sql='SELECT * FROM orders';
 	 let query=db.query(sql,function(err,rows,fields){
