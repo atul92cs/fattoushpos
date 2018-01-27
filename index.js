@@ -21,6 +21,18 @@ app.use(bodyparser.json());
 app.post('/',function(req,res){
 	res.send('App works');
 });
+app.post('/addProduct',function(req,res){
+	var name=req.body.Name;
+	var price=req.body.Price;
+	var quantity=req.body.Quantity;
+	var cost=req.body.Cost;
+	let body={product_name:name,product_price:price,product_quantity:quantity,product_cost:cost};
+    let sql='INSERT INTO temp_table SET ?';
+	let query=db.query(sql,body,(err,result)=>{
+		if(err)throw err;
+		res.send('Product Added');
+	});
+});
 app.get('/getOrders',function(req,res){
 	 let sql='SELECT * FROM orders';
 	 let query=db.query(sql,function(err,rows,fields){
