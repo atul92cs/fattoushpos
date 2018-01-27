@@ -1,5 +1,5 @@
 var express = require('express');
-var bodyparer=require('body-parser');
+var bodyparser=require('body-parser');
 var mysql=require('mysql');
 
 var db=mysql.createConnection( {host:'trial.cpaoqpenaokn.us-east-2.rds.amazonaws.com',
