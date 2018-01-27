@@ -55,7 +55,44 @@ app.get('/getOrders',function(req,res){
 	 });
 	
 });
-
+app.post('/register',function(req,res){
+	  var user_id=req.body.id;
+	  var password=req.body.Password;
+	  var contact=req.body.Contact;
+	  var email=req.body.Email;
+	  let body={log_id:user_id,log_password:password,contact_no:contact,user_email:email};
+	  let sql='INSERT INTO pos_user SET ?';
+	  let query=db.query(sql,body,(err,result)=>{
+		  if(err)throw err;
+		  res.send('User Registered');
+	  });
+});
+app.post('/login',function(req,res){
+	var user_id=req.body.Id;
+	var password=req.body.Password;
+	let body={log_id:user_id,log_password:password};
+	let sql ='SELECT * FROM pos_user WHERE log_id =? AND log_password=?';
+	let query=db.query(sql,[user_id,password],function(err,rows,fields){
+		if(!err)
+		{
+			var response=[];
+			if(rows.length!=0)
+			{
+				response.push('login successful');
+			}
+			else
+			{
+				response.push('login unsucessful');
+			}
+		}
+		else
+		{
+			response.push('error');
+		}
+		res.json({response});
+	});
+	
+});
 app.listen(port,function(){
       console.log('app started on port 8080');
   });
