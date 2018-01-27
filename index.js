@@ -29,6 +29,8 @@ app.get('/getOrders',function(req,res){
 			 var response=[];
 			 if(rows.length!=0)
 			 {
+				 for(var i=0;i<rows.length;i++)
+				 {
 				 var id=rows[i].order_id;
 				 var order=rows[i].order_summary;
 				 var cost=rows[i].order_cost;
@@ -38,7 +40,7 @@ app.get('/getOrders',function(req,res){
 				 var address=rows[i].order_address;
 				 var status=rows[i].order_status;
 				 response.push({id,order,cost,date,contact,name,address,status});
-				 
+				 }
 			 }
 			 else
 			 {
