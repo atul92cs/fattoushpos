@@ -55,6 +55,36 @@ app.get('/getOrders',function(req,res){
 	 });
 	
 });
+app.get('/getProducts',function(req,res){
+	let sql='SELECT * FROM products';
+	let query=db.query(sql,function(err,rows,fields){
+		if(!err)
+		{
+			var response=[];
+			if(rows.length!=0)
+			{
+				for(var i=0;i<rows.length;i++)
+				{
+					var name=rows[i].product_name;
+					var cost=rows[i].product_cost;
+					var category=rows[i].product_category;
+                    var diet=rows[i].product_diet;
+					response.push({name,cost,category,diet});
+				}
+			}
+			else
+			{
+				response.push({'response':'no data found'});
+				
+			}
+			res.json({response});
+		}
+		else
+		{
+			res.status(404).send('error occured');
+		}
+	});
+});
 app.post('/register',function(req,res){
 	  var user_id=req.body.id;
 	  var password=req.body.Password;
