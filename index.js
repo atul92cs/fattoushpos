@@ -45,6 +45,19 @@ app.post('/createProduct',function(req,res){
 		res.send('Product Created');
 	});
 	});
+app.post('/createBill',function(req,res){
+	var Name=req.body.Name;
+	var Details=req.body.Details;
+	var Cost=req.body.Cost;
+	var Date=req.body.Date;
+	let body={Customer_name:Name,order_details:Details,order_cost:Cost,order_date:Date};
+	let sql='INSERT INTO bill_data SET ?';
+let query=db.query(sql,body,(err,result)=>{
+	if(err)throw err;
+	res.send('bill created');
+	
+});
+});
 app.get('/getOrders',function(req,res){
 	 let sql='SELECT * FROM orders';
 	 let query=db.query(sql,function(err,rows,fields){
